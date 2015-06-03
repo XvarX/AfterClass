@@ -61,3 +61,9 @@ textarea {
 input, textarea {
     background: hsla(0, 0%, 0%, 0);
 }
+.each-content {
+    background-color: AliceBlue;
+    width: 170px;
+    height: 100px;
+    text-align: center;
+}

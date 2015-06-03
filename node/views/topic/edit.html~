@@ -47,8 +47,8 @@
               <%});%>
             </select>
             <span class="tab-selector">选择课时：</span>
-            <select name="times" id="tab-value">
-              <option value="6">请选择</option>
+            <select name="tab" id="tab-value">
+              <option value="">请选择</option>
               <% for(i = 1; i <= 22; i++) {
                      var value = i;
                      var text = i;

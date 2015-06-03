@@ -5,4 +5,4 @@
 <% } else if (typeof(tab) !== 'undefined' &&  tab === 'all' && topic.tabName) { %>
 <span class="topiclist-tab"><%= topic.tabName %></span>
 <% } %>
-<span class="topiclist-tab">第<%= topic.times %>次课</span>
+<span class="topiclist-tab"><%= topic.times %></span>
