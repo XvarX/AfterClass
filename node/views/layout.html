@@ -79,6 +79,7 @@
       <form id='search_form' class='navbar-search' action="/search">
         <input type='text' id='q' name='q' class='search-query span3' value=''/>
       </form>
+      <!--original version of right nav bar
       <ul class='nav pull-right'>
         <li><a href='/'>首页</a></li>
         <% if (typeof(current_user) !== 'undefined'){ %>
@@ -109,7 +110,48 @@
         <li><a href='/signup'>注册</a></li>
         <li><a href='/signin'>登录</a></li>
         <% } %>
+      </ul>-->
+      <!-- change the stylesheet of the right nav bar-->
+      <ul class='nav pull-right'>
+        <% if (typeof(current_user) !== 'undefined'){ %>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <%= current_user.loginname %> <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+              <li>
+                <a href='/my/messages' tabindex="-1">
+                  <% if (current_user.messages_count) { %>
+                    <span class='big messages_count'><%= current_user.messages_count %></span>
+                  <% } %>
+                  未读消息
+                </a>
+              </li>
+              <li><a href='/setting' tabindex="-1">设置</a></li>
+              <li class="divider"></li>
+              <li>
+                <a href='/signout' data-method="post" rel="nofollow" tabindex="-1">退出</a>
+              </li>
+          </ul>
+        </li>
+        <% } else { %>
+        <li><a href='/signup'>注册</a></li>
+        <li><a href='/signin'>登录</a></li>
+        <% } %>
       </ul>
+      <script>
+        $(document).ready(function() {
+          dropdownOpen();
+        });
+        function dropdownOpen() {
+          $('li.dropdown').mouseover(function() {
+            $(this).addClass('open');
+          }).mouseout(function() {
+            $(this).removeClass('open');
+          });
+        }
+      </script>
+      <!--end change-->
       <a class="btn btn-navbar" id="responsive-sidebar-trigger">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
