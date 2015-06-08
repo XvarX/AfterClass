@@ -24,7 +24,7 @@ var search = require('./controllers/search');
 var passport = require('passport');
 var configMiddleware = require('./middlewares/conf');
 var config = require('./config');
-
+var course = require('./controllers/course');
 var router = express.Router();
 
 // home page
@@ -72,6 +72,10 @@ router.get('/my/messages', auth.userRequired, message.index); // 用户个人的
 
 // 新建文章界面
 router.get('/topic/create', auth.userRequired, topic.create);
+//创建新课程
+router.get('/course/create', auth.userRequired, course.create);
+// 保存新建的课程
+router.post('/course/create', auth.userRequired, course.put);
 
 router.get('/topic/:tid', topic.index);  // 显示某个话题
 router.post('/topic/:tid/top', auth.adminRequired, topic.top);  // 将某话题置顶
