@@ -24,3 +24,7 @@ public/upload/*
 *.sublime-project
 *.sublime-workspace
 *.swp
+
+log.txt
+dump.rdb
+*~
