@@ -119,6 +119,8 @@
               <%= current_user.loginname %> <b class="caret"></b>
           </a>
           <ul class="dropdown-menu">
+              <li><a href='/user/<%= current_user.name %>' tabindex="-1">个人主页</a></li>
+              <li><a href='/setting' tabindex="-1">信息设置</a></li>
               <li>
                 <a href='/my/messages' tabindex="-1">
                   <% if (current_user.messages_count) { %>
@@ -127,7 +129,6 @@
                   未读消息
                 </a>
               </li>
-              <li><a href='/setting' tabindex="-1">设置</a></li>
               <li class="divider"></li>
               <li>
                 <a href='/signout' data-method="post" rel="nofollow" tabindex="-1">退出</a>
