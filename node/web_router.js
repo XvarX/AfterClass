@@ -70,12 +70,12 @@ router.get('/my/messages', auth.userRequired, message.index); // 用户个人的
 
 // course
 
-router.get('/course/:cid', auth.userRequired, course.index);
+
 //创建新课程
 router.get('/course/create', auth.userRequired, course.create);
 // 保存新建的课程
 router.post('/course/create', auth.userRequired, course.put);
-
+router.get('/course/:cid', auth.userRequired, course.index);
 
 // topic
 

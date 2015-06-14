@@ -15,6 +15,7 @@ var CourseCollect = require('../proxy').CourseCollect;
 var renderHelper = require('../common/render_helper');
 
 exports.create = function (req, res, next) {
+  console.log('creating');
   res.render('course/edit', {
     tabs: config.tabs
   });
@@ -23,17 +24,42 @@ exports.create = function (req, res, next) {
 exports.put = function (req, res, next) {
   var courseName = req.param('courseName');
   var teacherName =  req.param('teacherName');
-  // Course.newAndSave(courseName, teacherName,function (err, topic) {
-  //   if (err) {
-  //     return next(err);
-  //   }
-  // });
-  console.log("课程名:"+courseName);
-  console.log("教师名:"+teacherName);
-  res.redirect('/');
+
+  console.log("课程名:" + courseName);
+  console.log("教师名:" + teacherName);
+
+  var proxy = new eventproxy();
+  proxy.fail(next);
+
+  Course.getCourseByName(courseName, proxy.done('course'));
+  User.getUserByLoginName(teacherName, proxy.done('teacher'));
+
+  proxy.all('course', 'teacher', function(course, teacher) {
+    console.log(course, teacher);
+    if (course !== null) {
+      return res.render('notify/notify', {
+        error: '课程已存在'
+      });
+    } else if (teacher === null) {
+      return res.render('notify/notify', {
+        error: '用户不存在'
+      });
+    } else {
+      Course.newAndSave(courseName, teacher._id, function (err, course) {
+        console.log(course);
+        if (err) {
+          return next(err);
+        }
+        res.redirect('/');
+      });
+    }
+  });
 };
 
 exports.index = function (req, res, next) {
+  // TODO: filter topics by course
+  var cid = req.param('cid');
+
   var page = parseInt(req.query.page, 10) || 1;
   page = page > 0 ? page : 1;
   var tab = req.query.tab || 'all';
@@ -111,7 +137,7 @@ exports.index = function (req, res, next) {
   var tabName = renderHelper.tabName(tab);
   proxy.all('topics', 'tops', 'no_reply_topics', 'pages',
     function (topics, tops, no_reply_topics, pages) {
-      res.render('index', {
+      res.render('course/index', {
         topics: topics,
         current_page: page,
         list_topic_count: limit,
@@ -121,6 +147,7 @@ exports.index = function (req, res, next) {
         tabs: config.tabs,
         tab: tab,
         pageTitle: tabName && (tabName + '版块'),
+        cid: cid
       });
     });
 };

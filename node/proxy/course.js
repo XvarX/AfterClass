@@ -10,23 +10,25 @@ var at = require('../common/at');
 */
 exports.getCourseById = function (id, callback) {
   var proxy = new EventProxy();
-  var events = ['course', 'author'];
-  proxy.assign(events, function (topic, author) {
-    if (!author) {
-	return callback(null,null,null);
+  var events = ['course', 'teacher'];
+
+  proxy.assign(events, function (course, teacher) {
+    if (!teacher) {
+	   return callback(null, null);
     }
-    return callback(null, course, author);
+    return callback(course, teacher);
   }).fail(callback);
 
   Course.findOne({_id: id}, proxy.done(function (course) {
     if (!course) {
       proxy.emit('course', null);
-      proxy.emit('author', null);
+      proxy.emit('teacher', null);
       return;
     }
     proxy.emit('course', course);
+  }));
 
-    User.getUserById(course.author_id, proxy.done('author'));
+  User.getUserById(course.teacher_id, proxy.done('teacher'));
 };
 
 //for sitemap
@@ -38,10 +40,20 @@ exports.getCourse = function (id, callback) {
   Course.findOne({_id:id},callback);
 };
 
-exports.newAndSave = function (name,authorId,courseId,callback) {
+exports.getCourseByName = function (name, callback) {
+  Course.findOne({name: name}, callback);
+};
+
+exports.newAndSave = function (name, teacher_id, callback) {
   var course = new Course();
   course.name = name;
-  course.author_id = authorId;
-  course.course_id = courseId;
+  course.teacher_id = teacher_id;
+  console.log('newing course')
+  console.log(course);
+  console.log(Course);
   course.save(callback);
+};
+
+exports.getCoursesByUserId = function (id, callback) {
+  Course.find({}, callback);  // TODO: filter
 };
