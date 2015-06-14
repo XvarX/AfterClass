@@ -68,15 +68,19 @@ router.post('/user/:name/delete_all', auth.adminRequired, user.deleteAll);  // �
 // message controler
 router.get('/my/messages', auth.userRequired, message.index); // 用户个人的所有消息页
 
-// topic
+// course
 
-// 新建文章界面
-router.get('/topic/create', auth.userRequired, topic.create);
+router.get('/course/:cid', auth.userRequired, course.index);
 //创建新课程
 router.get('/course/create', auth.userRequired, course.create);
 // 保存新建的课程
 router.post('/course/create', auth.userRequired, course.put);
 
+
+// topic
+
+// 新建文章界面
+router.get('/topic/create', auth.userRequired, topic.create);
 router.get('/topic/:tid', topic.index);  // 显示某个话题
 router.post('/topic/:tid/top', auth.adminRequired, topic.top);  // 将某话题置顶
 router.post('/topic/:tid/good', auth.adminRequired, topic.good); // 将某话题加精
