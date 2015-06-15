@@ -27,9 +27,12 @@
       <% if (typeof(action) !== 'undefined' && action === 'edit') { %>
       <form id='create_topic_form' action='/topic/<%= topic_id %>/edit' method='post'>
         <% } else { %>
-        <form id='create_topic_form' action='/topic/create' method='post'>
+        <form id='create_topic_form' action='/topic/create/<%- course._id %>' method='post'>
           <% } %>
           <fieldset>
+            <span class="tab-selector">课程： </span>
+            <input class='input readonly' size='30' type='text'
+                   readonly='true' value="<%= course.name %>"/><br>
             <span class="tab-selector">选择版块：</span>
             <select name="tab" id="tab-value">
               <option value="">请选择</option>

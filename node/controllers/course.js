@@ -4,6 +4,7 @@ var at = require('../common/at');
 var User = require('../proxy').User;
 var Topic = require('../proxy').Topic;
 var TopicCollect = require('../proxy').TopicCollect;
+var Course = require('../proxy').Course;
 var eventproxy = require('eventproxy');
 var tools = require('../common/tools');
 var store = require('../common/store');
@@ -67,8 +68,10 @@ exports.index = function (req, res, next) {
   var proxy = new eventproxy();
   proxy.fail(next);
 
+  Course.getCourse(cid, proxy.done('course'));
+
   // 取主题
-  var query = {};
+  var query = {course_id: cid};
   if (tab && tab !== 'all') {
     if (tab === 'good') {
       query.good = true;
@@ -135,8 +138,8 @@ exports.index = function (req, res, next) {
   // END 取分页数据
 
   var tabName = renderHelper.tabName(tab);
-  proxy.all('topics', 'tops', 'no_reply_topics', 'pages',
-    function (topics, tops, no_reply_topics, pages) {
+  proxy.all('course', 'topics', 'tops', 'no_reply_topics', 'pages',
+    function (course, topics, tops, no_reply_topics, pages) {
       res.render('course/index', {
         topics: topics,
         current_page: page,
@@ -147,7 +150,8 @@ exports.index = function (req, res, next) {
         tabs: config.tabs,
         tab: tab,
         pageTitle: tabName && (tabName + '版块'),
-        cid: cid
+        cid: cid,
+        course: course
       });
     });
 };
