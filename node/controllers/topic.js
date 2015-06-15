@@ -12,6 +12,7 @@ var at = require('../common/at');
 var User = require('../proxy').User;
 var Topic = require('../proxy').Topic;
 var TopicCollect = require('../proxy').TopicCollect;
+var Course = require('../proxy').Course;
 var EventProxy = require('eventproxy');
 var tools = require('../common/tools');
 var store = require('../common/store');
@@ -111,13 +112,23 @@ exports.index = function (req, res, next) {
 };
 
 exports.create = function (req, res, next) {
-  res.render('topic/edit', {
-    tabs: config.tabs
+  var cid = req.param('cid');
+  var proxy = new EventProxy();
+  proxy.fail(next);
+
+  Course.getCourse(cid, proxy.done('course'));
+  
+  proxy.all('course', function (course) {
+    res.render('topic/edit', {
+      tabs: config.tabs,
+      course: course
+    });
   });
 };
 
 
 exports.put = function (req, res, next) {
+  var cid = req.param('cid');
   var title = validator.trim(req.body.title);
   title = validator.escape(title);
   var tab = validator.trim(req.body.tab);
@@ -153,7 +164,7 @@ exports.put = function (req, res, next) {
     });
   }
 
-  Topic.newAndSave(title, content, tab, req.session.user._id, times,function (err, topic) {
+  Topic.newAndSave(title, content, tab, req.session.user._id, times, cid, function (err, topic) {
     if (err) {
       return next(err);
     }
