@@ -23,7 +23,7 @@ exports.index = function (req, res, next) {
   var proxy = new eventproxy();
   proxy.fail(next);
 
-  Course.getCoursesByUserId(req.session.user._id, function(err, courses) {
+  Course.getAllCourses (function(err, courses) {
     res.render('index', {
       courses: courses
     });
