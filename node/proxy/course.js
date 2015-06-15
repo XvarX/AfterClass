@@ -57,3 +57,7 @@ exports.newAndSave = function (name, teacher_id, callback) {
 exports.getCoursesByUserId = function (id, callback) {
   Course.find({}, callback);  // TODO: filter
 };
+
+exports.getAllCourses = function (callback) {
+  Course.find({}, callback);
+};
