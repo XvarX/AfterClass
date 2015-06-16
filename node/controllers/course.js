@@ -60,7 +60,6 @@ exports.put = function (req, res, next) {
 exports.index = function (req, res, next) {
   // TODO: filter topics by course
   var cid = req.param('cid');
-
   var course_id = cid;
   var page = parseInt(req.query.page, 10) || 1;
   page = page > 0 ? page : 1;
