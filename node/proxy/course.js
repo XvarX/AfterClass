@@ -55,7 +55,11 @@ exports.newAndSave = function (name, teacher_id, callback) {
 };
 
 exports.getCoursesByUserId = function (id, callback) {
-  Course.find({}, callback);  // TODO: filter
+  User.getUserById(id, function(err, user) {
+    Course.find({
+      collect_user: user.id
+    },callback);
+  });
 };
 
 exports.getAllCourses = function (callback) {

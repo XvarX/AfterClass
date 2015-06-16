@@ -159,6 +159,10 @@ exports.collect = function (req, res, next) {
   var course_id = req.body.course_id;
   var proxy = new eventproxy();
   proxy.fail(next);
+  Course.getCourse(course_id, function (err, course) {
+    course.collect_user.push(req.session.user._id);
+    course.save();
+  });
   User.getUserById(req.session.user._id, function (err, user) {
     user.collect_course.push(course_id);
     user.save();

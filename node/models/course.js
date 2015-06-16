@@ -7,6 +7,7 @@ var CourseSchema = new Schema({
   teacher_id: { type: ObjectId},
   create_at: { type: Date, default: Date.now },
   deleted: {type: Boolean, default: false},
+  collect_user : [Schema.Types.ObjectId],
 });
 
 mongoose.model('Course', CourseSchema);

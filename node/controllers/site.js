@@ -23,11 +23,22 @@ exports.index = function (req, res, next) {
   var proxy = new eventproxy();
   proxy.fail(next);
 
-  Course.getAllCourses (function(err, courses) {
+  if (req.session.user) {
+  Course.getCoursesByUserId(req.session.user._id, function(err, collectcourses) {
+    Course.getAllCourses(function(err, courses) {
+      res.render('index', {
+        collectcourses: collectcourses,
+        courses: courses
+    });
+  });
+});
+} else {
+  Course.getAllCourses(function(err, courses) {
     res.render('index', {
       courses: courses
     });
   });
+}
 };
 
 exports.sitemap = function (req, res, next) {
