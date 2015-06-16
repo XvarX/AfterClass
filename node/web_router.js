@@ -80,6 +80,7 @@ router.post('/course/create', auth.userRequired, course.put);
 
 router.get('/course/:cid', auth.userRequired, course.index);
 router.post('/course/collect', auth.userRequired, course.collect); // 关注某话题
+
 // topic
 
 // 新建文章界面
