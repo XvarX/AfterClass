@@ -11,6 +11,14 @@
         <a href="/course/<%= value ? cid+'/?tab=' + value : '/' %>"
           class="topic-tab <%= value === tab ? 'current-tab' : '' %>"><%= text %></a>
       <% }) %>
+
+      <div class = "action">
+        <span class="span-common span-success" id = "coursecollect"action="collect">
+          book
+        </span>
+      </div>
+
+
     </div>
     <div class="panel">
       <div class='inner'>
@@ -35,3 +43,25 @@
     <% } %>
   </div>
 </div>
+
+<script>
+$('#coursecollect').click(function () {
+      var $me = $(this);
+      var action = $me.attr('action');
+      var data = {
+        course_id: '<%= cid%>',
+      };
+      $.post('/course/' + action, data, function (data) {
+        if (data.status === 'success') {
+          if (action == 'collect') {
+            $me.text('取消收藏');
+            $me.attr('action', 'collect');
+          } else {
+            $me.text('加入收藏');
+            $me.attr('action', 'collect');
+          }
+          $me.toggleClass('span-success');
+        }
+      }, 'json');
+    });
+</script>

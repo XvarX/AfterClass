@@ -61,6 +61,7 @@ exports.index = function (req, res, next) {
   // TODO: filter topics by course
   var cid = req.param('cid');
 
+  var course_id = cid;
   var page = parseInt(req.query.page, 10) || 1;
   page = page > 0 ? page : 1;
   var tab = req.query.tab || 'all';
@@ -154,4 +155,13 @@ exports.index = function (req, res, next) {
         course: course
       });
     });
+};
+exports.collect = function (req, res, next) {
+  var course_id = req.body.course_id;
+  var proxy = new eventproxy();
+  proxy.fail(next);
+  User.getUserById(req.session.user._id, function (err, user) {
+    user.collect_course.push(course_id);
+    user.save();
+  });
 };
