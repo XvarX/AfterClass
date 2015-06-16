@@ -68,15 +68,19 @@ router.post('/user/:name/delete_all', auth.adminRequired, user.deleteAll);  // �
 // message controler
 router.get('/my/messages', auth.userRequired, message.index); // 用户个人的所有消息页
 
-// topic
+// course
 
-// 新建文章界面
-router.get('/topic/create', auth.userRequired, topic.create);
+
 //创建新课程
 router.get('/course/create', auth.userRequired, course.create);
 // 保存新建的课程
 router.post('/course/create', auth.userRequired, course.put);
+router.get('/course/:cid', auth.userRequired, course.index);
 
+// topic
+
+// 新建文章界面
+router.get('/topic/create/:cid', auth.userRequired, topic.create);
 router.get('/topic/:tid', topic.index);  // 显示某个话题
 router.post('/topic/:tid/top', auth.adminRequired, topic.top);  // 将某话题置顶
 router.post('/topic/:tid/good', auth.adminRequired, topic.good); // 将某话题加精
@@ -86,7 +90,7 @@ router.post('/topic/:tid/lock', auth.adminRequired, topic.lock); // 锁定主题
 router.post('/topic/:tid/delete', auth.userRequired, topic.delete);
 
 // 保存新建的文章
-router.post('/topic/create', auth.userRequired, limit.peruserperday('create_topic', config.create_post_per_day), topic.put);
+router.post('/topic/create/:cid', auth.userRequired, limit.peruserperday('create_topic', config.create_post_per_day), topic.put);
 
 router.post('/topic/:tid/edit', auth.userRequired, topic.update);
 router.post('/topic/collect', auth.userRequired, topic.collect); // 关注某话题

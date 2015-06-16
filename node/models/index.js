@@ -23,4 +23,4 @@ exports.Reply = mongoose.model('Reply');
 exports.TopicCollect = mongoose.model('TopicCollect');
 exports.Message = mongoose.model('Message');
 exports.Course = mongoose.model('Course');
-exports.Course = mongoose.model('CourseCollect');
+exports.CourseCollect = mongoose.model('CourseCollect');

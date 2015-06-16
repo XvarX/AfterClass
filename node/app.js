@@ -33,6 +33,7 @@ var busboy = require('connect-busboy');
 var errorhandler = require('errorhandler');
 var cors = require('cors');
 var limitMiddleware = require('./middlewares/limit');
+var morgan = require('morgan');
 
 // 静态文件目录
 var staticDir = path.join(__dirname, 'public');
@@ -60,6 +61,7 @@ app.engine('html', require('ejs-mate'));      // 使用ejs作为模板引擎
 app.locals._layoutFile = 'layout.html';
 app.enable('trust proxy');
 
+//app.use(morgan('tiny'));
 
 // 静态资源
 app.use(Loader.less(__dirname));
