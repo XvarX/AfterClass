@@ -216,9 +216,10 @@ a.light:hover {
 .panel .inner {
   line-height: 2em;
   padding: 10px;
+  background-color: white;
   border-radius: 0 0 3px 3px;
   a {
-    color: #333333;
+    color: #FFF;
   }
 }
 
@@ -238,23 +239,27 @@ a.light:hover {
   box-shadow: none;
 }
 
-.cell {
+.cell_item {
   position: relative;
   display: inline-block;
   height: 150px;
   width: 220px;
-  margin: 5px 40px 25px 0;
+  margin: 5px 30px 25px 30px;
   font-size: 14px;
   color: #7491a8;
   background: url("../images/cell_back.png") no-repeat;
   text-align: center;
 }
 
-.cell p {
+.cell_item p {
   position: absolute;
   font-weight: bold;
   bottom: -5px;  
   left: 20px;
+}
+
+.cut-off {
+	padding-left: 25px;
 }
 
 .panel .cell {
