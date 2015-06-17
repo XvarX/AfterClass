@@ -1,3 +1,14 @@
+<div class = "cut-off">
+	<p class="label">your courses</p>
+</div>
+<div id="course_list">
+  <%- partial('abstract', {collection:collectcourses, as:'course'}) %>
+</div>
+<br>
+<hr>
+<div class = "cut-off">
+	<p class="label">all courses</p>
+</div>
 <div id="course_list">
   <%- partial('abstract', {collection:courses, as:'course'}) %>
 </div>

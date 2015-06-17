@@ -22,6 +22,7 @@ var UserSchema = new Schema({
   githubId: { type: String},
   githubUsername: {type: String},
   githubAccessToken: {type: String},
+  collect_course : [Schema.Types.ObjectId],
   is_block: {type: Boolean, default: false},
 
   score: { type: Number, default: 0 },

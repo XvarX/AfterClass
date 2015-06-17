@@ -75,7 +75,11 @@ router.get('/my/messages', auth.userRequired, message.index); // 用户个人的
 router.get('/course/create', auth.userRequired, course.create);
 // 保存新建的课程
 router.post('/course/create', auth.userRequired, course.put);
+//book courses
+
+
 router.get('/course/:cid', auth.userRequired, course.index);
+router.post('/course/collect', auth.userRequired, course.collect); // 关注某话题
 
 // topic
 
