@@ -3,6 +3,7 @@
 
 <div id="content">
   <h1><%- course.name %></h1>
+  <p>Teacher:<%- course.teacher_name %></p>
   <div class="panel">
     <div class="header">
       <% [['all', '全部'], ['good', '精华']].concat(tabs).forEach(function (pair) {
@@ -13,9 +14,15 @@
       <% }) %>
 
       <div class = "action">
-        <span class="span-common span-success" id = "coursecollect"action="collect">
-          book
-        </span>
+        <% if (course.collect_user.indexOf(user._id) >= 0) { %>
+          <span class="span-common" id = "coursecollect"action="collect">
+            booking
+          </span>
+        <% }  else { console.log(course.collect_user.indexOf(user._id))%>
+          <span class="span-common span-success" id = "coursecollect"action="collect">
+            book
+          </span>
+        <% } %>
       </div>
 
     </div>
@@ -46,17 +53,18 @@
 <script>
 $('#coursecollect').click(function () {
       var $me = $(this);
+      this.innerHTML = "booking";
+      this.className = "span-common";
       var action = $me.attr('action');
       var data = {
         course_id: '<%= cid%>',
+        _csrf: ''
       };
       $.post('/course/' + action, data, function (data) {
         if (data.status === 'success') {
           if (action == 'collect') {
-            $me.text('取消收藏');
             $me.attr('action', 'collect');
           } else {
-            $me.text('加入收藏');
             $me.attr('action', 'collect');
           }
           $me.toggleClass('span-success');

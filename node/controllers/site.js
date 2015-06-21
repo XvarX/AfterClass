@@ -35,7 +35,8 @@ exports.index = function (req, res, next) {
 } else {
   Course.getAllCourses(function(err, courses) {
     res.render('index', {
-      courses: courses
+      courses: courses,
+      collectcourses: {}
     });
   });
 }

@@ -1,5 +1,7 @@
 <div class = "cut-off">
+<% if (collectcourses.length) { %>
    <h3>你参与的课程</h3>
+  <% } %>
 </div>
 <div id="course_list">
   <%- partial('abstract', {collection:collectcourses, as:'course'}) %>

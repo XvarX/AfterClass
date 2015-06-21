@@ -44,10 +44,11 @@ exports.getCourseByName = function (name, callback) {
   Course.findOne({name: name}, callback);
 };
 
-exports.newAndSave = function (name, teacher_id, callback) {
+exports.newAndSave = function (name, teacher_id, teacher_name, callback) {
   var course = new Course();
   course.name = name;
   course.teacher_id = teacher_id;
+  course.teacher_name = teacher_name;
   console.log('newing course')
   console.log(course);
   console.log(Course);

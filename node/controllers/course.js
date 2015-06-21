@@ -37,7 +37,7 @@ exports.put = function (req, res, next) {
 
   proxy.all('course', 'teacher', function(course, teacher) {
     console.log(course, teacher);
-    if (course !== null) {
+    if (course !== null && course.teacher_name == teacher.name) {
       return res.render('notify/notify', {
         error: '课程已存在'
       });
@@ -46,7 +46,7 @@ exports.put = function (req, res, next) {
         error: '用户不存在'
       });
     } else {
-      Course.newAndSave(courseName, teacher._id, function (err, course) {
+      Course.newAndSave(courseName, teacher._id, teacherName, function (err, course) {
         console.log(course);
         if (err) {
           return next(err);
@@ -138,7 +138,7 @@ exports.index = function (req, res, next) {
   // END 取分页数据
 
   var tabName = renderHelper.tabName(tab);
-  proxy.all('course', 'topics', 'tops', 'no_reply_topics', 'pages',
+  proxy.all('course', 'topics', 'tops', 'no_reply_topics', 'pages', 
     function (course, topics, tops, no_reply_topics, pages) {
       res.render('course/index', {
         topics: topics,
@@ -151,7 +151,8 @@ exports.index = function (req, res, next) {
         tab: tab,
         pageTitle: tabName && (tabName + '版块'),
         cid: cid,
-        course: course
+        course: course,
+        user:req.session.user,
       });
     });
 };
