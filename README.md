@@ -3,7 +3,7 @@ AfterClass
 
 ## 介绍
 
-AfterClass 是使用 **Node.js** 和 **MongoDB** 开发的社区系统，界面优雅，功能丰富，小巧迅速，
+AfterClass 是使用 **Node.js** 和 **MongoDB** 基于nodeclub框架，开发的社区系统，界面优雅，功能丰富，小巧迅速，
 
 ## 安装部署
 
