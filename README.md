@@ -19,6 +19,9 @@ AfterClass 是使用 **Node.js** 和 **MongoDB** 基于nodeclub框架，开发�
 6.. visit `localhost:3000`
 7. done!
 ```
+注意：
+1.课程的老师必须是已经注册的用户
+2.为了方便本地测试，项目已经将验证邮箱步骤屏蔽，注册完可直接登录
 
 
 ## License
